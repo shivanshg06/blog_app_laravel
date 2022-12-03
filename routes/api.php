@@ -20,19 +20,20 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 // Public Routes
 Route::prefix('blogs')->group(function () {
     Route::get('', [BlogController::class, 'index']);
     Route::get('{id}', [BlogController::class, 'show']);
     Route::get('search/{name}', [BlogController::class, 'search']);
 });
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
 
-// Route::prefix('user')->group(function () {
-//     // Route::get('{user_id}', );
-//     Route::get('{user_id}/blogs', [BlogController::class, 'indexByUser']);
-// });
+Route::prefix('user')->group(function () {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    // Route::get('{user_id}', );
+    // Route::get('{user_id}/blogs', [BlogController::class, 'indexByUser']);
+});
 
 // Private Routes
 Route::group(['middleware'=>['auth:sanctum']],function(){
