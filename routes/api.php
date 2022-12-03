@@ -31,13 +31,14 @@ Route::prefix('blogs')->group(function () {
 Route::prefix('user')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
-    // Route::get('{user_id}', );
-    // Route::get('{user_id}/blogs', [BlogController::class, 'indexByUser']);
 });
 
 // Private Routes
 Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('/logout',[AuthController::class,'logout']);
+    Route::prefix('user')->group(function () {
+        Route::get('userId/',[AuthController::class, 'userId']);
+    });
     Route::prefix('blogs')->group(function(){
         Route::post('', [BlogController::class, 'store']);
         Route::put('{id}', [BlogController::class, 'update']);
