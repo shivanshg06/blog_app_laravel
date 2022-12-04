@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response as FacadesResponse;
 
 class BlogController extends Controller
 {
@@ -17,16 +19,6 @@ class BlogController extends Controller
     public function index()
     {
         return Blog::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -59,14 +51,16 @@ class BlogController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function showByUser($user_id)
     {
-        //
+        $blogs = DB::table('blogs')->whereIn('user_id', [$user_id])->get();
+        // printf($blogs);
+        return Response($blogs);
     }
 
     /**
