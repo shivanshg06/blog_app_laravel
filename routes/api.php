@@ -27,7 +27,6 @@ Route::prefix('blogs')->group(function () {
     Route::get('{id}', [BlogController::class, 'show']);
     Route::get('search/{name}', [BlogController::class, 'search']);
 });
-
 Route::prefix('user')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);

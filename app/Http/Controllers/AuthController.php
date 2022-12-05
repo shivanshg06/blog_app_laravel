@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -33,6 +32,7 @@ class AuthController extends Controller
         return Response($response, 201);
         // return Response($request, 404);
     }
+
     public function login(Request $request){
         $fields = $request->validate([
             'email'=>'required|string',
