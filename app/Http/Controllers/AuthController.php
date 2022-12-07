@@ -20,6 +20,8 @@ class AuthController extends Controller
             'name' => $fields['name'],
             'email' => $fields['email'],
             'password' => bcrypt($fields['password']),
+            'security-question'=>'NA',
+            'security-answer'=>'NA',
         ]);
 
         $token = $user->createToken('myapptoken')->plainTextToken;
