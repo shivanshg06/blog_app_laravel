@@ -22,22 +22,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Public Routes
-Route::prefix('blogs')->group(function () {
-    Route::get('', [BlogController::class, 'index']);
-    Route::get('{id}', [BlogController::class, 'show']);
-    Route::get('search/{name}', [BlogController::class, 'search']);
-});
 Route::prefix('user')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
     Route::get('blogs/{user_id}', [BlogController::class, 'showByUser']);
+    Route::get('{user_id}', [BlogController::class, 'showByUser']);
+});
+Route::prefix('blogs')->group(function () {
+    Route::get('', [BlogController::class, 'index']);
+    Route::get('{id}', [BlogController::class, 'show']);
+    Route::get('search/{name}', [BlogController::class, 'search']);
 });
 
 // Private Routes
 Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::prefix('user')->group(function () {
         Route::post('logout',[AuthController::class,'logout']);
+        Route::put('setSecurity',[AuthController::class, 'setSecurity']);
         Route::get('userId',[AuthController::class, 'userId']);
+        Route::get('getUser',[AuthController::class, 'getUser']);
     });
     Route::prefix('blogs')->group(function(){
         Route::post('', [BlogController::class, 'store']);

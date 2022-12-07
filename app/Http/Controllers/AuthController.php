@@ -30,7 +30,31 @@ class AuthController extends Controller
         ];
 
         return Response($response, 201);
-        // return Response($request, 404);
+    }
+
+    public function setSecurity(Request $request){
+        $user = User::find($request->user()->id);
+        $fields = $request->validate(
+            [
+                'security-question'=>'required|string',
+                'security-answer'=>'required|string',
+            ]
+        );
+        $user->update($fields);
+        return Response($user, 200);
+    }
+    
+    public function getUser(Request $request){
+        $user = $request->user;
+        return [
+            'user'=>$user,
+        ];
+    }
+    
+    public function userId(Request $request){
+        return [
+            'id' => $request->user()->id,
+        ];
     }
 
     public function login(Request $request){
@@ -70,12 +94,6 @@ class AuthController extends Controller
 
         return [
             'message' => 'Logged Out',
-        ];
-    }
-
-    public function userId(Request $request){
-        return [
-            'id' => $request->user()->id,
         ];
     }
 }
