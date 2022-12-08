@@ -41,6 +41,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
         Route::put('setSecurity',[AuthController::class, 'setSecurity']);
         Route::get('userId',[AuthController::class, 'userId']);
         Route::get('getUser',[AuthController::class, 'getUser']);
+        Route::put('resetPassword', [AuthController::class, 'resetPassword']);
     });
     Route::prefix('blogs')->group(function(){
         Route::post('', [BlogController::class, 'store']);
