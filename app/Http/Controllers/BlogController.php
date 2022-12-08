@@ -29,14 +29,15 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $fields = $request->validate([
             'title'=>'required',
             'slug'=>'required',
             'content'=>'required',
-            'user_id'=>'required'
         ]);
-
-        return Blog::create($request->all());
+        $fields = array_merge($fields, [
+            'user_id'=>$request->user()->id,
+        ]);
+        return Blog::create($fields);
     }
 
     /**
