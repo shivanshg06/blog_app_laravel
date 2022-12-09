@@ -50,7 +50,7 @@ class AuthController extends Controller
     }
 
     public function returnUser(Request $request){
-        return Response($request->user(), 500,);
+        return Response($request->user());
     }
 
     public function login(Request $request)
