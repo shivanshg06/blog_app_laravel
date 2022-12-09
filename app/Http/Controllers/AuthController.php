@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -48,19 +49,8 @@ class AuthController extends Controller
         return Response($user, 200);
     }
 
-    public function getUser(Request $request)
-    {
-        $user = $request->user;
-        return [
-            'user' => $user,
-        ];
-    }
-
-    public function userId(Request $request)
-    {
-        return [
-            'id' => $request->user()->id,
-        ];
+    public function returnUser(Request $request){
+        return Response($request->user(), 500,);
     }
 
     public function login(Request $request)

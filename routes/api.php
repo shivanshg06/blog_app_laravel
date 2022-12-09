@@ -26,7 +26,6 @@ Route::prefix('user')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
     Route::get('blogs/{user_id}', [BlogController::class, 'showByUser']);
-    Route::get('{user_id}', [BlogController::class, 'showByUser']);
 });
 Route::prefix('blogs')->group(function () {
     Route::get('', [BlogController::class, 'index']);
@@ -39,8 +38,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::prefix('user')->group(function () {
         Route::post('logout',[AuthController::class,'logout']);
         Route::put('setSecurity',[AuthController::class, 'setSecurity']);
-        Route::get('userId',[AuthController::class, 'userId']);
-        Route::get('getUser',[AuthController::class, 'getUser']);
+        Route::get('returnUser', [AuthController::class, 'returnUser']);
         Route::put('resetPassword', [AuthController::class, 'resetPassword']);
     });
     Route::prefix('blogs')->group(function(){
@@ -48,4 +46,9 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
         Route::put('{id}', [BlogController::class, 'update']);
         Route::delete('{id}', [BlogController::class, 'destroy']);
     });
+});
+Route::get('test', function () {
+    return Response([
+        'message'=>'This message is an error',
+    ], 500);
 });

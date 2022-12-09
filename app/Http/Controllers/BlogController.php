@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response as FacadesResponse;
 
 class BlogController extends Controller
 {
@@ -18,7 +16,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return Blog::all();
+        return Response(Blog::all(), 200);
     }
 
     /**
